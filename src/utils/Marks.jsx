@@ -18,8 +18,8 @@ export const ScatterMarks = ({ data, xScale, yScale, xValue, yValue, toolTipForm
         style={{ fill: '#8E6C8A' }}
         key={i}
         cx={xScale(xValue(d))}
-        cy={yScale(yValue(d))}
-        r={10}
+        cy={yScale(yValue(d))} 
+        r={9}
     >
         <title>{toolTipFormat(xValue(d))}</title>
     </circle>

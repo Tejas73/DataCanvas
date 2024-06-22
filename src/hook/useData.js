@@ -18,21 +18,21 @@ export const useDataBar = () => {
     return data;
 }
 
-// const csvUrlScatter = "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/0e7a9b0a5d22642a06d3d5b9bcbad9890c8ee534/iris.csv";
+const csvUrlScatter = "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/0e7a9b0a5d22642a06d3d5b9bcbad9890c8ee534/iris.csv";
 
-// export const useDataScatter = () => {
-//     const [data, setData] = useState(null);
+export const useDataScatter = () => {
+    const [data, setData] = useState(null);
 
-//     useEffect(() => {
-//         const row = d => {
-//             d.sepal_length = parseFloat(sepal_length);
-//             d.sepal_width = parseFloat(sepal_width);
-//             d.petal_length = parseFloat(petal_length);
-//             d.petal_width = parseFloat(petal_width);
-//             return d;
-//         }
-//         d3.csv(csvUrlScatter, row).then(setData);
+    useEffect(() => {
+        const row = d => {
+            d.sepal_length = parseFloat(d.sepal_length);
+            d.sepal_width = parseFloat(d.sepal_width);
+            d.petal_length = parseFloat(d.petal_length);
+            d.petal_width = parseFloat(d.petal_width);
+            return d;
+        }
+        d3.csv(csvUrlScatter, row).then(setData);
 
-//     }, []);
-//     return data;
-// }
+    }, []);
+    return data;
+}
