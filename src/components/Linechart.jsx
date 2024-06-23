@@ -37,7 +37,8 @@ const Linechart = () => {
 
     const yScale = d3.scaleLinear()
         .domain(d3.extent(data, yValue))
-        .range([innerHeight, 0]);
+        .range([innerHeight, 0])
+        .nice();
 
         // used the same utils for Scatterplot here but the hook and LineMarks is different
     return (

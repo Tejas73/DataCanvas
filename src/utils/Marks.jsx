@@ -1,4 +1,4 @@
-import { line } from "d3";
+import { curveNatural, line } from "d3";
 
 export const BarMarks = ({ data, xScale, yScale, xValue, yValue, toolTipFormat }) =>
     data.map((d, i) =>
@@ -20,31 +20,37 @@ export const ScatterMarks = ({ data, xScale, yScale, xValue, yValue, toolTipForm
         style={{ fill: '#8E6C8A' }}
         key={i}
         cx={xScale(xValue(d))}
-        cy={yScale(yValue(d))} 
+        cy={yScale(yValue(d))}
         r={9}
     >
         <title>{toolTipFormat(xValue(d))}</title>
     </circle>
     ))
 
-    export const LineMarks = ({ data, xScale, yScale, xValue, yValue, toolTipFormat }) => (
-        <>
-            <path fill="none" stroke="black"
+export const LineMarks = ({ data, xScale, yScale, xValue, yValue, toolTipFormat }) => (
+    <>
+        <g>
+            <path fill="none" stroke="#8E6C8A" strokeWidth={5} strokeLinejoin="round" strokeLinecap="round"
                 d={line()
                     .x(d => xScale(xValue(d)))
                     .y(d => yScale(yValue(d)))
-                    (data)
+                    .curve(curveNatural)(data)
+
                 } />
-            {data.map((d, i) => (
+
+
+            {/* if i want to remove the circles in the lines, just coment the entire section below */}
+            {/* {data.map((d, i) => (
                 <circle
                     style={{ fill: '#8E6C8A' }}
                     key={i}
                     cx={xScale(xValue(d))}
                     cy={yScale(yValue(d))}
-                    r={9}
+                    r={5}
                 >
                     <title>{toolTipFormat(xValue(d))}</title>
                 </circle>
-            ))}
-        </>
-    )
+            ))} */}
+        </g>
+    </>
+)
