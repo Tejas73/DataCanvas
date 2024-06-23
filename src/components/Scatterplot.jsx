@@ -15,21 +15,21 @@ const Scatterplot = () => {
   const xAxisLabelOffset = 55;
   const yAxisLabelOffset = 50;
 
-  const SIformat = d3.format(".2s");
+  const SIformat = d3.format(".1f");
   const xAxisTickFormat = (tickValue) => SIformat(tickValue).replace("G", "B");
 
   const xValue = (d) => d.sepal_length;
-  const xAxisLabel = "Sepal Length";
+  const xAxisLabel = "Sepal Length(cm)";
 
   const yValue = (d) => d.sepal_width;
-  const yAxisLabel = "Sepal Width";
-
-  if (!data) {
-    return <p>Loading...</p>;
-  }
+  const yAxisLabel = "Sepal Width(cm)";
 
   const innerHeight = height - margin.top - margin.bottom;
   const innerWidth = width - margin.left - margin.right;
+
+  if (!data) {
+    return <h1>Loading...</h1>
+  }
 
   const xScale = d3
     .scaleLinear()
@@ -61,7 +61,7 @@ const Scatterplot = () => {
           >
             {yAxisLabel}
           </text>
-          
+
           <text
             x={innerWidth / 2}
             y={innerHeight + xAxisLabelOffset}

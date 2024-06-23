@@ -24,7 +24,7 @@ export const useDataScatter = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        const row = d => {
+        const row = (d) => {
             d.sepal_length = parseFloat(d.sepal_length);
             d.sepal_width = parseFloat(d.sepal_width);
             d.petal_length = parseFloat(d.petal_length);
@@ -34,5 +34,22 @@ export const useDataScatter = () => {
         d3.csv(csvUrlScatter, row).then(setData);
 
     }, []);
+    return data;
+}
+
+const csvUrlScatterLine = "https://gist.githubusercontent.com/ny2cali/ae74ee9a6f73fbf6d48d0e9108296e97/raw/78375409c2428911c7bf1d6a1ac83318c5deaec1/week_temperature_sf.csv"
+
+export const useDataLine = () => {
+    const [data, setData] = useState(null);
+
+    useEffect(()=>{
+        const row=d=>{
+            d.timestamp = new Date(d.timestamp);
+            d.temperature = parseFloat(d.temperature);
+            return d;
+        }
+        d3.csv(csvUrlScatterLine, row).then(setData);
+    },[])
+
     return data;
 }
