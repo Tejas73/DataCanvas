@@ -11,7 +11,7 @@ const Barchart = () => {
   const width = 960;
   const height = 500;
   const margin = { top: 20, right: 20, bottom: 100, left: 156 };
-  
+
   const xAxisLabelOffset = 50;
 
   const SIformat = d3.format('.2s');
@@ -40,12 +40,15 @@ const Barchart = () => {
     <div>
       <svg width={width} height={height} >
         <g transform={`translate(${margin.left},${margin.top})`}>
+          
           <BarAxisBottom
             xScale={xScale}
             innerHeight={innerHeight}
             tickFormat={xAxisTickFormat}
           />
+
           <BarAxisLeft yScale={yScale} />
+
           <text
             x={innerWidth / 2}
             y={innerHeight + xAxisLabelOffset}
@@ -55,6 +58,7 @@ const Barchart = () => {
           >
             Population
           </text>
+
           <BarMarks
             data={data}
             xScale={xScale}
@@ -65,7 +69,7 @@ const Barchart = () => {
           />
         </g>
       </svg>
-     </div>
+    </div>
   );
 };
 

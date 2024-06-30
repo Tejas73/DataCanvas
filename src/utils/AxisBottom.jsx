@@ -6,7 +6,8 @@ export const BarAxisBottom = ({ xScale, innerHeight, tickFormat }) =>
                 {tickFormat(tickValue)}
             </text>
         </g>
-    ));
+    )); 
+
 export const ScatterAxisBottom = ({ xScale, innerHeight, tickFormat }) =>
     xScale.ticks().map(tickValue => (
         <g key={tickValue} transform={`translate(${xScale(tickValue)}, 0)`} >
@@ -15,4 +16,4 @@ export const ScatterAxisBottom = ({ xScale, innerHeight, tickFormat }) =>
                 {tickFormat(tickValue)}
             </text>
         </g>
-    ));
+    )); 

@@ -2,6 +2,7 @@ import './App.css';
 import Barchart from './components/Barchart';
 import Linechart from './components/Linechart';
 import Scatterplot from './components/Scatterplot';
+import Worldmap from './components/Worldmap';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <Barchart />
       <Scatterplot></Scatterplot>
       <Linechart></Linechart>
+      <Worldmap></Worldmap>
     </div>
   );
 }
