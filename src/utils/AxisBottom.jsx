@@ -16,4 +16,4 @@ export const ScatterAxisBottom = ({ xScale, innerHeight, tickFormat }) =>
                 {tickFormat(tickValue)}
             </text>
         </g>
-    )); 
+    ));  
