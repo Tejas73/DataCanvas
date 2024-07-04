@@ -25,5 +25,4 @@ const ColorLegend = ({ colorScale, tickSpacing, tickSize, tickTextOffset, onHove
     )
     )
 
-
 export default ColorLegend;

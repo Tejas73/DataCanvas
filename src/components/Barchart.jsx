@@ -4,10 +4,11 @@ import { useDataBar } from "../hook/useData";
 import { BarAxisBottom } from "../utils/AxisBottom";
 import { BarAxisLeft } from "../utils/AxisLeft";
 import { BarMarks } from "../utils/Marks";
+// import DropMenu from '../utility/DropMenu';
 
 const Barchart = () => {
   const data = useDataBar();
-
+  // console.log("data", data);
   const width = 960;
   const height = 500;
   const margin = { top: 20, right: 20, bottom: 100, left: 156 };
@@ -17,30 +18,47 @@ const Barchart = () => {
   const SIformat = d3.format('.2s');
   const xAxisTickFormat = tickValue => SIformat(tickValue).replace('G', 'B');
 
-  const yValue = d => d.Region;
-  const xValue = d => d.Population;
-
   if (!data) {
     return <p>Loading...</p>;
   }
+  // const initialXOption = {value: 'select x axis', label: 'Select X axis'}
+  const xValue = d => d.Population;
+  // const [selectedXOption, setSelectedXOption] = useState('Select X axis')
+const xAxisLabel = 'Population';
+
+  const yValue = d => d.Region;
+
+  // const keys = Object.keys(data[0]);
+  // const options = keys;
+  // console.log("options: ", options)
 
   const innerHeight = height - margin.top - margin.bottom;
   const innerWidth = width - margin.left - margin.right;
+
+  const xScale = d3.scaleLinear()
+    .domain([0, d3.max(data, xValue)])
+    .range([0, innerWidth]);
 
   const yScale = d3.scaleBand()
     .domain(data.map(yValue))
     .range([0, innerHeight])
     .paddingInner(0.1);
 
-  const xScale = d3.scaleLinear()
-    .domain([0, d3.max(data, xValue)])
-    .range([0, innerWidth]);
 
   return (
     <div>
       <svg width={width} height={height} >
         <g transform={`translate(${margin.left},${margin.top})`}>
-          
+          {/* <DropMenu
+            options={options}
+            selectedOption={selectedXOption}
+            onSelectedOptionChange={setSelectedXOption}
+          />
+          <DropMenu
+            options={options}
+            selectedOption={selectedYOption}
+            onSelectedOptionChange={setSelectedYOption}
+          /> */}
           <BarAxisBottom
             xScale={xScale}
             innerHeight={innerHeight}
@@ -56,7 +74,7 @@ const Barchart = () => {
             fill="black"
             style={{ fontSize: 20, fill: "#635F5D" }}
           >
-            Population
+            {xAxisLabel}
           </text>
 
           <BarMarks

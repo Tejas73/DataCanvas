@@ -12,7 +12,7 @@ export const BarMarks = ({ data, xScale, yScale, xValue, yValue, toolTipFormat }
     >
         <title>{toolTipFormat(xValue(d))}</title>
     </rect>
-    ));
+    )); 
 
 export const ScatterMarks = ({ data, xScale, yScale, xValue, yValue,colorScale, colorValue, toolTipFormat }) =>
     data.map((d, i) =>
@@ -21,7 +21,7 @@ export const ScatterMarks = ({ data, xScale, yScale, xValue, yValue,colorScale, 
         cx={xScale(xValue(d))}
         cy={yScale(yValue(d))}
         fill={colorScale(colorValue(d))}
-        r={9}
+        r={7}
     >
         <title>{toolTipFormat(xValue(d))}</title>
     </circle>

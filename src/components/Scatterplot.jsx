@@ -5,36 +5,45 @@ import { ScatterAxisBottom } from "../utils/AxisBottom";
 import { ScatterAxisLeft } from "../utils/AxisLeft";
 import { ScatterMarks } from "../utils/Marks";
 import DropMenu from "../utility/DropMenu";
-import ColorLegend from "./ColorLegend";
+import ColorLegend from "../utils/ColorLegend";
+import { CapAndReplace } from "../utility/CapAndReplace";
 
 const Scatterplot = () => {
   const data = useDataScatter();
   const [hoveredValue, setHoveredValue] = useState(null);
+  // console.log("data: ", data)
 
-  const initialXOption = { value: "sepal_length", label: 'Sepal Length' }
+  const initialXOption = { value: "choose x axis", label: 'Select x axis' }
   const [selectedXOption, setSelectedXOption] = useState(initialXOption);
   const xValue = (d) => d[selectedXOption.value];
-  const xAxisLabel = selectedXOption.label + "(cm)";
+  const xAxisLabel =CapAndReplace(selectedXOption.label) ;
 
-  const initialYOption = { value: "sepal_width", label: 'Sepal Width' }
+  const initialYOption = { value: "choose y axis", label: 'Select y axis' }
   const [selectedYOption, setSelectedYOption] = useState(initialYOption);
   const yValue = (d) => d[selectedYOption.value];
-  const yAxisLabel = selectedYOption.label + "(cm)";
-
-  const colorValue = d => d.species;
-  const colorLegendLabel = 'Species';
+  const yAxisLabel = CapAndReplace(selectedYOption.label) ; 
 
   if (!data) {
     return <h1>Loading...</h1>
   }
 
-  const options = [
-    { value: "sepal_length", label: 'Sepal Length' },
-    { value: "sepal_width", label: 'Sepal Width' },
-    { value: "petal_length", label: 'Petal Length' },
-    { value: "petal_width", label: 'Petal Width' },
-    { value: "species", label: 'Species' }
-  ]
+  const categoricalColumn = Object.keys(data[0]).find(key => {
+    const strValue = data[0][key];
+    return (isNaN(Number(strValue)) && !isFinite(strValue));
+  })
+
+  const colorValue = d => d[categoricalColumn]
+  console.log("colorValue", colorValue);
+  const colorLegendLabel = CapAndReplace(categoricalColumn);  
+
+  const keys = Object.keys(data[0]);
+  // console.log("scatterplot keys: ", keys);
+
+  const options = keys.map(option => ({
+    value: option,
+    label: option
+  }));
+
   const width = 960;
   const height = 500;
   const margin = { top: 20, right: 200, bottom: 65, left: 100 };
@@ -62,13 +71,12 @@ const Scatterplot = () => {
 
   const colorScale = d3.scaleOrdinal()
     .domain(data.map(colorValue))
-    .range(['#E6842A', '#137B80', '#8E6C8A '])
+    .range(['#E6842A', '#137B80', '#8E6C8A', '#9A3E25', '#5C8100','#BD2D28', '#0F8C79', ' #708259'])
 
   const filteredData = data.filter(d => hoveredValue === colorValue(d));
 
   return (
     <div>
-
       <div>
         <span style={{ fontSize: 25, color: "#635F5D" }}>X</span>
         <DropMenu

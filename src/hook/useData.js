@@ -1,41 +1,43 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import * as d3 from "d3";
-import { feature, mesh, topology } from "topojson";
+import { feature, mesh } from "topojson";
 
 const csvUrlBar = "https://gist.githubusercontent.com/Tejas73/e417d317c2822a939e0ed1a2f9f14772/raw/d98ff4e78f6dcfe041b835ce2a4eedd44aabcabd/population.csv";
 
-export const useDataBar = () => { 
+export const useDataBar = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const row = d => {
             d.Population = parseFloat(d['Total Population (thousands)'] * 1000);
-            return d; 
+            return d;
         }
         d3.csv(csvUrlBar, row).then(setData);
 
     }, []);
+    // console.log("useData",data)
     return data;
 }
 
-const csvUrlScatter = "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/0e7a9b0a5d22642a06d3d5b9bcbad9890c8ee534/iris.csv";
+const csvUrlScatter = "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv";
+// const csvUrlScatter = "https://gist.githubusercontent.com/curran/a08a1080b88344b0c8a7/raw/0e7a9b0a5d22642a06d3d5b9bcbad9890c8ee534/iris.csv";
 
 export const useDataScatter = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const row = (d) => {
-            d.sepal_length = parseFloat(d.sepal_length);
-            d.sepal_width = parseFloat(d.sepal_width);
-            d.petal_length = parseFloat(d.petal_length);
-            d.petal_width = parseFloat(d.petal_width);
+            Object.keys(d).forEach(key => {
+                if (!isNaN(Number(d[key])) && isFinite(Number(d[key]))) {
+                    d[key] = Number(d[key]);
+                }
+            })
             return d;
         }
         d3.csv(csvUrlScatter, row).then(setData);
 
     }, []);
-  console.log("data",data)
 
     return data;
 }

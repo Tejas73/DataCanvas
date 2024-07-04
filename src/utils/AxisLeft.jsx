@@ -8,7 +8,7 @@ export const BarAxisLeft = ({ yScale }) =>
                 dy='.32rem' 
             >
                 {tickValue} 
-            </text>
+            </text> 
         </g>
     ));
 
