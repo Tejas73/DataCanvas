@@ -1,4 +1,4 @@
-export const CapAndReplace = (inputText) => {
+export const CapAndReplace = (inputText: string): string => {
     const regex = /[_-]/g;
     let str = inputText.replace(regex, " ");
 
@@ -6,4 +6,4 @@ export const CapAndReplace = (inputText) => {
     let capStr = str.replace(newRegex, letter => letter.toUpperCase());
 
     return capStr;
-}
+};

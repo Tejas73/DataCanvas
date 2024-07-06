@@ -3,10 +3,23 @@ import { Menu, MenuButton, MenuItem } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import { CapAndReplace } from './CapAndReplace';
 
-const DropMenu = ({ options, selectedOption, onSelectedOptionChange }) => {
-    const handleSelect = (value) => {
+interface Option {
+    value: string;
+    label: string;
+}
+
+interface DropMenuProps {
+    options: Option[];
+    selectedOption: Option;
+    onSelectedOptionChange: (option: Option) => void;
+}
+
+const DropMenu: React.FC<DropMenuProps> = ({ options, selectedOption, onSelectedOptionChange }) => {
+    const handleSelect = (value: string) => {
         const selected = options.find(option => option.value === value);
-        onSelectedOptionChange(selected);
+        if (selected) {
+            onSelectedOptionChange(selected);
+        }
     };
 
     return (

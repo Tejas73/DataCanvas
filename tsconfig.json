@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es2016", // Or a higher target if needed
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "strict": true, // Consider enabling gradually if needed
+    "noImplicitAny": false, // Optional based on your preference
+    "sourceMap": true,
+    "allowJs": false, // Optional if you need to include JavaScript files
+    "checkJs": false, // Optional if you have included JavaScript files
+  }
+}

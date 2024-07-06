@@ -7,24 +7,25 @@ import { BarMarks } from "../utils/Marks";
 import DropMenu from '../utility/DropMenu';
 import { CapAndReplace } from '../utility/CapAndReplace';
 
-const Barchart = () => {
+const Barchart: React.FC = () => {
   const data = useDataBar();
   const width = 960;
   const height = 500;
   const margin = { top: 100, right: 20, bottom: 50, left: 200 };
   const xAxisLabelOffset = 50;
   const SIformat = d3.format('.2s');
-  const xAxisTickFormat = tickValue => SIformat(tickValue).replace('G', 'B');
+  const xAxisTickFormat = (tickValue: number) => SIformat(tickValue).replace('G', 'B');
 
-  const initialXOption = { value: "choose x axis", label: 'Select x axis' }
-  const [selectedXOption, setSelectedXOption] = useState(initialXOption);
-  const xValue = d => d[selectedXOption.value];
+  const initialXOption = { value: "choose x axis", label: 'Select x axis' };
+  const [selectedXOption, setSelectedXOption] = useState<{ value: string, label: string }>(initialXOption);
+  const xValue = (d: { [x: string]: any; }) => d[selectedXOption.value];
   const xAxisLabel = CapAndReplace(selectedXOption.label);
 
-  const initialYOption = { value: "choose y axis", label: 'Select y axis' }
-  const [selectedYOption, setSelectedYOption] = useState(initialYOption);
-  const yValue = d => d[selectedYOption.value];
+  const initialYOption = { value: "choose y axis", label: 'Select y axis' };
+  const [selectedYOption, setSelectedYOption] = useState<{ value: string, label: string }>(initialYOption);
+  const yValue = (d: { [x: string]: any; }) => d[selectedYOption.value];
   const yAxisLabel = CapAndReplace(selectedYOption.label);
+
   if (!data) {
     return <p>Loading...</p>;
   }
@@ -39,7 +40,7 @@ const Barchart = () => {
   const innerWidth = width - margin.left - margin.right;
 
   const xScale = d3.scaleLinear()
-    .domain([0, d3.max(data, xValue)])
+    .domain([0, d3.max(data, xValue)!])
     .range([0, innerWidth]);
 
   const yScale = d3.scaleBand()

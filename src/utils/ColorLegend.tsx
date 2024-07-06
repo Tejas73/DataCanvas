@@ -1,5 +1,16 @@
-const ColorLegend = ({ colorScale, tickSpacing, tickSize, tickTextOffset, onHover, hoveredValue }) =>
-    colorScale.domain().map((domainValue, i) =>
+import React from 'react';
+
+interface ColorLegendProps {
+    colorScale: any; 
+    tickSpacing: number;
+    tickSize: number;
+    tickTextOffset: number;
+    onHover: (value: any) => void; 
+    hoveredValue: any; 
+}
+
+const ColorLegend: React.FC<ColorLegendProps> = ({ colorScale, tickSpacing, tickSize, tickTextOffset, onHover, hoveredValue }) =>
+    colorScale.domain().map((domainValue: any, i: number) =>
     (
         <g
             key={i}
@@ -23,6 +34,6 @@ const ColorLegend = ({ colorScale, tickSpacing, tickSize, tickTextOffset, onHove
             </text>
         </g>
     )
-    )
+    );
 
 export default ColorLegend;

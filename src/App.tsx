@@ -1,18 +1,17 @@
+import React from 'react';
 import './App.css';
 import Barchart from './components/Barchart';
-import Linechart from './components/Linechart';
 import Scatterplot from './components/Scatterplot';
-import Worldmap from './components/Worldmap';
+import Linechart from './components/Linechart';
 
 function App() {
-
   return (
     <div className="App">
       <h1> React + D3 </h1>
       <Barchart />
-      <Scatterplot></Scatterplot>
-      <Linechart></Linechart>
-      <Worldmap></Worldmap>
+      <Scatterplot  />
+      <Linechart  />
+      {/* <Worldmap  /> */}
     </div>
   );
 }
