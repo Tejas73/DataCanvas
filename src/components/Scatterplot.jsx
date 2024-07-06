@@ -33,12 +33,9 @@ const Scatterplot = () => {
   })
 
   const colorValue = d => d[categoricalColumn]
-  console.log("colorValue", colorValue);
   const colorLegendLabel = CapAndReplace(categoricalColumn);  
 
   const keys = Object.keys(data[0]);
-  // console.log("scatterplot keys: ", keys);
-
   const options = keys.map(option => ({
     value: option,
     label: option

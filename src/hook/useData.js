@@ -3,20 +3,25 @@ import { useState } from "react";
 import * as d3 from "d3";
 import { feature, mesh } from "topojson";
 
-const csvUrlBar = "https://gist.githubusercontent.com/Tejas73/e417d317c2822a939e0ed1a2f9f14772/raw/d98ff4e78f6dcfe041b835ce2a4eedd44aabcabd/population.csv";
+// const csvUrlBar = "https://gist.githubusercontent.com/Tejas73/e417d317c2822a939e0ed1a2f9f14772/raw/d98ff4e78f6dcfe041b835ce2a4eedd44aabcabd/population.csv";
+const csvUrlBar = "https://gist.githubusercontent.com/Tejas73/10d3a301f64ce908c818f76de91c6d15/raw/b7e9a043cda25cbea9788c967e6979b4f6924cf5/sales-trends.csv";
 
 export const useDataBar = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const row = d => {
-            d.Population = parseFloat(d['Total Population (thousands)'] * 1000);
+            Object.keys(d).forEach(key=>{
+                if (!isNaN(Number(d[key])) && isFinite(Number(d[key]))) {
+                    d[key] = Number(d[key]);
+                } 
+            })
             return d;
         }
         d3.csv(csvUrlBar, row).then(setData);
-
+        
     }, []);
-    // console.log("useData",data)
+    console.log("useData",data)
     return data;
 }
 

@@ -18,7 +18,7 @@ export const ScatterAxisLeft = ({ yScale, innerWidth }) =>
             <line x2={innerWidth} stroke="#C0C0BB"></line>
             <text
                 style={{ textAnchor: 'end', fill: '#635F5D' }}
-                x={-3}
+                x={-3} 
                 dy='.32rem'
             >
                 {tickValue}
