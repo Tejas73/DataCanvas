@@ -8,7 +8,8 @@ import DropMenu from "../utility/DropMenu";
 import { CapAndReplace } from "../utility/CapAndReplace";
 
 const Linechart: React.FC = () => {
-  const data = useDataLine();
+  const [csvLine, setCsvLine] = useState("https://gist.githubusercontent.com/ny2cali/ae74ee9a6f73fbf6d48d0e9108296e97/raw/78375409c2428911c7bf1d6a1ac83318c5deaec1/week_temperature_sf.csv")
+  const data = useDataLine(csvLine);
 
   const width = 960;
   const height = 500;
@@ -54,6 +55,19 @@ const Linechart: React.FC = () => {
 
   return (
     <div>
+      <div>
+        <h1>Linechart</h1>
+      </div>
+      <div> 
+        <input
+          type="text"
+          id='csvBar'
+          value={csvLine}
+          onChange={(e) => setCsvLine(e.target.value)}
+          placeholder="Input your csv url"
+          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-2/5 relative z-10 mt-4  bg-neutral-300 placeholder:text-neutral-700"
+        />
+      </div>
       <div>
         <span style={{ fontSize: 25, color: "#635F5D" }}>X</span>
         <DropMenu

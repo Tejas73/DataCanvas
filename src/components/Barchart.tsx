@@ -8,7 +8,9 @@ import DropMenu from '../utility/DropMenu';
 import { CapAndReplace } from '../utility/CapAndReplace';
 
 const Barchart: React.FC = () => {
-  const data = useDataBar();
+  const [csvBar, setCsvBar] = useState("https://gist.githubusercontent.com/Tejas73/10d3a301f64ce908c818f76de91c6d15/raw/b7e9a043cda25cbea9788c967e6979b4f6924cf5/sales-trends.csv")
+  const data = useDataBar(csvBar);
+
   const width = 960;
   const height = 500;
   const margin = { top: 100, right: 20, bottom: 50, left: 200 };
@@ -46,10 +48,26 @@ const Barchart: React.FC = () => {
   const yScale = d3.scaleBand()
     .domain(data.map(yValue))
     .range([0, innerHeight])
-    .paddingInner(0.1);
+    .paddingInner(0.1); 
 
   return (
     <div>
+
+      <div>
+        <h1>Barchart</h1>
+      </div>
+
+      <div>
+        <input
+          type="text"
+          id='csvBar'
+          value={csvBar}
+          onChange={(e) => setCsvBar(e.target.value)}
+          placeholder="Input your csv url"
+          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-2/5 relative z-10 mt-4  bg-neutral-300 placeholder:text-neutral-700"
+        />
+      </div>
+
       <div>
         <span style={{ fontSize: 25, color: "#635F5D" }}>X</span>
         <DropMenu
@@ -64,6 +82,7 @@ const Barchart: React.FC = () => {
           onSelectedOptionChange={setSelectedYOption}
         />
       </div>
+
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left},${margin.top})`}>
 
@@ -99,6 +118,7 @@ const Barchart: React.FC = () => {
           />
         </g>
       </svg>
+
     </div>
   );
 };

@@ -14,17 +14,18 @@ import { CapAndReplace } from "../utility/CapAndReplace";
 // }
 
 const Scatterplot: React.FC = () => {
-  const data = useDataScatter();
+  const [csvScatter, setCsvScatter] = useState("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv");
+  const data = useDataScatter(csvScatter);
   const [hoveredValue, setHoveredValue] = useState<string | null>(null);
 
   const initialXOption = { value: "choose x axis", label: 'Select x axis' }
   const [selectedXOption, setSelectedXOption] = useState<{ value: string, label: string }>(initialXOption);
-  const xValue = (d) => (d[selectedXOption.value]); // Adjust as per your data structure
+  const xValue = (d) => (d[selectedXOption.value]); 
   const xAxisLabel = CapAndReplace(selectedXOption.label);
 
   const initialYOption = { value: "choose y axis", label: 'Select y axis' }
   const [selectedYOption, setSelectedYOption] = useState<{ value: string, label: string }>(initialYOption);
-  const yValue = (d) => (d[selectedYOption.value]); // Adjust as per your data structure
+  const yValue = (d) => (d[selectedYOption.value]);
   const yAxisLabel = CapAndReplace(selectedYOption.label);
 
   if (!data) {
@@ -36,7 +37,7 @@ const Scatterplot: React.FC = () => {
     return (isNaN(Number(strValue)));
   }) || '';
 
-  const colorValue = (d: { [x: string]: any; }) => String(d[categoricalColumn]); // Adjust as per your data structure
+  const colorValue = (d: { [x: string]: any; }) => String(d[categoricalColumn]);
   const colorLegendLabel = CapAndReplace(categoricalColumn);
 
   const keys = Object.keys(data[0]);
@@ -78,6 +79,22 @@ const Scatterplot: React.FC = () => {
 
   return (
     <div>
+
+      <div>
+        <h1>Scatterplot</h1>
+      </div>
+
+      <div>
+        <input
+          type="text"
+          id='csvBar'
+          value={csvScatter}
+          onChange={(e) => setCsvScatter(e.target.value)}
+          placeholder="Input your csv url"
+          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-2/5 relative z-10 mt-4  bg-neutral-300 placeholder:text-neutral-700"
+        />
+      </div>
+      
       <div>
         <span style={{ fontSize: 25, color: "#635F5D" }}>X</span>
         <DropMenu

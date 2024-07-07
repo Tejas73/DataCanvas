@@ -1,9 +1,9 @@
 import React from 'react';
 
 interface BarAxisBottomProps {
-    xScale: any; // Replace with the actual type of your xScale
+    xScale: any;
     innerHeight: number;
-    tickFormat: (value: any) => string; // Replace `any` with the actual type of your tick values
+    tickFormat: (value: any) => string;
 }
 
 export const BarAxisBottom: React.FC<BarAxisBottomProps> = ({ xScale, innerHeight, tickFormat }) =>
@@ -17,9 +17,9 @@ export const BarAxisBottom: React.FC<BarAxisBottomProps> = ({ xScale, innerHeigh
     ));
 
 interface ScatterAxisBottomProps {
-    xScale: any; // Replace with the actual type of your xScale
+    xScale: any; 
     innerHeight: number;
-    tickFormat: (value: any) => string; // Replace `any` with the actual type of your tick values
+    tickFormat: (value: any) => string; 
 }
 
 export const ScatterAxisBottom: React.FC<ScatterAxisBottomProps> = ({ xScale, innerHeight, tickFormat }) =>

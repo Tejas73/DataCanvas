@@ -1,5 +1,6 @@
 import React from 'react';
-import { curveNatural, geoEqualEarth, geoPath, line } from 'd3';
+import { curveNatural, line } from 'd3';
+// import { curveNatural, geoEqualEarth, geoPath, line } from 'd3';
 
 interface BarMarksProps {
     data: any[];
