@@ -1,9 +1,5 @@
 import React from "react";
-import { BackgroundBeams } from "./ui/background-beams";
-import { BackgroundBeamCurveDown } from "./ui/curve-right-down";
 import { useNavigate } from "react-router-dom";
-
-
 
 const Landing = () => {
     const navigate = useNavigate();
@@ -37,17 +33,16 @@ const Landing = () => {
 
                     </div>
                     <div className="p-4 flex justify-around">
-                        <button onClick={ handleClickBarChart} className="px-8 py-2 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500">
+                        <button onClick={handleClickBarChart} className="px-8 py-2 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500 relative z-10">
                             Barchart
                         </button>
-                        <button onClick={ handleClickScatterplot} className="px-8 py-2 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500">
+                        <button onClick={handleClickScatterplot} className="px-8 py-2 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500 relative z-10">
                             Scatterplot
                         </button>
-                        <button onClick={ handleClickLinechart} className="px-8 py-2 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500">
+                        <button onClick={handleClickLinechart} className="px-8 py-2 rounded-md bg-teal-500 text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-teal-500 relative z-10">
                             Linechart
                         </button>
                     </div>
-                    
                 </div>
             </div>
 
@@ -75,6 +70,7 @@ const Landing = () => {
                             <li>3)Linechart: Quantitative(continuous) and Quantitative(continuous). eg- Temperature and Timestamp etc</li>
                         </ul>
                     </div>
+
                 </div>
 
                 <div>
@@ -85,10 +81,7 @@ const Landing = () => {
                         If you followed the above steps properly then just sit back and relax and let your dataset come to life!
                     </p>
                 </div>
-                <BackgroundBeamCurveDown></BackgroundBeamCurveDown>
             </div>
-            <BackgroundBeams />
-
         </div>
     );
 }
