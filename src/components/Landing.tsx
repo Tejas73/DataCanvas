@@ -19,7 +19,7 @@ const Landing = () => {
     return (
         <div className="h-max w-full bg-slate-100  ">
 
-            <div className="flex justify-between bg-slate-500">
+            <div className="flex justify-between">
 
                 {/* triangle */}
                 <div className="h-28 w-36 md:h-52 md:w-60 xl:h-96 xl:w-96 overflow-hidden">
@@ -44,15 +44,15 @@ const Landing = () => {
                         {/* buttons */}
                         <div className="p-4 flex justify-around">
                             <button onClick={handleClickBarChart}
-                             className="px-2 py-1 sm:px-8 sm:py-2 rounded-md border-black mr-2 bg-citrine text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-citrine relative z-10 ">
+                             className="px-2 py-1 sm:px-8 sm:py-2 rounded-md border-slate-950 mr-2 bg-citrine text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-citrine relative z-10 ">
                                 Barchart
                             </button>
                             <button onClick={handleClickScatterplot}
-                             className="px-2 py-1 sm:px-8 sm:py-2 rounded-md border-black mr-2 bg-african_violet text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-african_violet relative z-10 ">
+                             className="px-2 py-1 sm:px-8 sm:py-2 rounded-md border-slate-950 mr-2 bg-african_violet text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-african_violet relative z-10 ">
                                 Scatterplot
                             </button>
                             <button onClick={handleClickLinechart}
-                             className="px-2 py-1 sm:px-8 sm:py-2 rounded-md border-black mr-2 bg-carrot_orange text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-carrot_orange relative z-10 ">
+                             className="px-2 py-1 border-slate-950 mr-2 sm:px-8 sm:py-2 rounded-md bg-carrot_orange text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-carrot_orange relative z-10 ">
                                 Linechart
                             </button>
                         </div>
@@ -60,7 +60,7 @@ const Landing = () => {
                 </div>
 
                 {/* triangle */}
-                <div className="h-28 w-36 md:h-52 md:w-60 xl:h-96 xl:w-96 overflow-hidden rotate-180">
+                <div className="h-28 w-36 mt-32 md:h-52 md:w-60 xl:h-96 xl:w-96 overflow-hidden rotate-180">
                     <svg viewBox={'0 0 400 400'}>
                         <polygon points={'0,0 400,0 0,400'} className="fill-black" />
                     </svg>
