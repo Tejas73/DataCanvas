@@ -18,7 +18,8 @@ const Landing = () => {
     }
     return (
         <div className="h-max w-full bg-slate-100  ">
-            <div className="flex justify-between">
+
+            <div className="flex justify-between bg-slate-500">
 
                 {/* triangle */}
                 <div className="h-28 w-36 md:h-52 md:w-60 xl:h-96 xl:w-96 overflow-hidden">
@@ -43,15 +44,15 @@ const Landing = () => {
                         {/* buttons */}
                         <div className="p-4 flex justify-around">
                             <button onClick={handleClickBarChart}
-                             className="px-8 py-2 rounded-md bg-citrine text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-citrine relative z-10">
+                             className="px-2 py-1 sm:px-8 sm:py-2 rounded-md border-black mr-2 bg-citrine text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-citrine relative z-10 ">
                                 Barchart
                             </button>
                             <button onClick={handleClickScatterplot}
-                             className="px-8 py-2 rounded-md bg-african_violet text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-african_violet relative z-10">
+                             className="px-2 py-1 sm:px-8 sm:py-2 rounded-md border-black mr-2 bg-african_violet text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-african_violet relative z-10 ">
                                 Scatterplot
                             </button>
                             <button onClick={handleClickLinechart}
-                             className="px-8 py-2 rounded-md bg-carrot_orange text-white font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-carrot_orange relative z-10">
+                             className="px-2 py-1 sm:px-8 sm:py-2 rounded-md border-black mr-2 bg-carrot_orange text-white font-semibold sm:font-bold transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-carrot_orange relative z-10 ">
                                 Linechart
                             </button>
                         </div>
@@ -67,29 +68,29 @@ const Landing = () => {
             </div>
 
             {/* paragraphs for user */}
-            <div className="h-max w-full relative p-28 m-2border-t-2">
-                <hr className="pt-3 border-t-2 border-border_gray " />
+            <div className="h-max w-full relative p-28 border-t-2 justify-center">
+                <hr className="pt-3 pb-3 border-t-2 border-border_gray " />
 
                 {/* 1st paragraph  */}
                 <div className="border-4 border-slate-900 rounded-2xl p-4 w-fit bg-lime-400 mb-2">
                     <div className=" relative z-10 text-2xl md:text-5xl text-slate-900 font-sans font-bold pb-2">
                         Clean your data
                     </div>
-                    <p className="text-black max-w-lg  my-2 text-sm  relative z-10">
+                    <p className="text-black max-w-lg  my-2 text-sm ">
                         This is the most important step. Make sure your data is clean so that Data Canvas can provide the expected visualization for you.
                     </p>
                 </div>
 
                 {/* 2nd paragraph  */}
-                <div className="flex flex-row-reverse antialiased">
+                <div className="flex lg:flex-row-reverse antialiased">
                     <div className="border-4 border-slate-900 rounded-2xl p-4 w-fit bg-lime-400 mb-2">
                         <div className="relative z-10 text-2xl md:text-5xl text-slate-900 font-sans font-bold pb-2">
                             Paste your CSV link
                         </div>
-                        <p className="text-black max-w-lg  my-2 text-sm  relative z-10">
+                        <p className="text-black max-w-lg  my-2 text-sm  ">
                             Get a CSV link of your dataset and paste it in the input field. Make sure your data is relevant to the visualization. Here's what Data Canvas expects the data types for each visualization to be:- <br></br><br></br>
                         </p>
-                        <ul className="text-black max-w-lg  my-2 text-sm  relative z-10">
+                        <ul className="text-black max-w-lg  my-2 text-sm ">
                             <li>1)Barchart: Categorical and Quantitative(discrete). eg- Sales and Year or Countries and Population etc.</li><br></br>
                             <li>2)Scatterplot: Quantitative(continuous) and Quantitative(continuous) and Categorical(optional). eg- Length and Width etc</li><br></br>
                             <li>3)Linechart: Quantitative(continuous) and Quantitative(continuous). eg- Temperature and Timestamp etc</li>
@@ -103,7 +104,7 @@ const Landing = () => {
                     <div className="relative z-10 text-2xl md:text-5xl text-slate-900 font-sans font-bold pb-2">
                         Reap what you sow
                     </div>
-                    <p className="text-black max-w-lg  my-2 text-sm  relative z-10">
+                    <p className="text-black max-w-lg  my-2 text-sm ">
                         If you followed the above steps properly then just sit back and relax and let your dataset come to life!
                     </p>
                 </div>
