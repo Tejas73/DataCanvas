@@ -8,7 +8,7 @@ import DropMenu from '../utility/DropMenu';
 import { CapAndReplace } from '../utility/CapAndReplace';
 
 const Barchart: React.FC = () => {
-  const [csvBar, setCsvBar] = useState("https://gist.githubusercontent.com/Tejas73/10d3a301f64ce908c818f76de91c6d15/raw/b7e9a043cda25cbea9788c967e6979b4f6924cf5/sales-trends.csv")
+  const [csvBar, setCsvBar] = useState("https://gist.githubusercontent.com/Tejas73/10d3a301f64ce908c818f76de91c6d15/raw/b7e9a043cda25cbea9788c967e6979b4f6924cf5/sales-trends.csv");
   const data = useDataBar(csvBar);
 
   const width = 960;
@@ -48,79 +48,91 @@ const Barchart: React.FC = () => {
   const yScale = d3.scaleBand()
     .domain(data.map(yValue))
     .range([0, innerHeight])
-    .paddingInner(0.1); 
+    .paddingInner(0.1);
 
   return (
-    <div>
+    <div className='p-3 xl:p-6'>
 
-      <div>
-        <h1>Barchart</h1>
+      {/* title */}
+      <div className='text-5xl font-medium'>
+        Barchart
       </div>
 
-      <div>
+      {/* input field  */}
+      <div className='my-5'>
         <input
           type="text"
           id='csvBar'
           value={csvBar}
           onChange={(e) => setCsvBar(e.target.value)}
           placeholder="Input your csv url"
-          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-2/5 relative z-10 mt-4  bg-neutral-300 placeholder:text-neutral-700"
+          className="block w-2/5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
         />
       </div>
 
+      {/* menu  */}
       <div>
-        <span style={{ fontSize: 25, color: "#635F5D" }}>X</span>
-        <DropMenu
-          options={options}
-          selectedOption={selectedXOption}
-          onSelectedOptionChange={setSelectedXOption}
-        />
-        <span style={{ fontSize: 25, color: "#635F5D" }}>Y</span>
+        <span className='text-2xl text-slate-700 mr-2'>Y</span>
         <DropMenu
           options={options}
           selectedOption={selectedYOption}
           onSelectedOptionChange={setSelectedYOption}
         />
+        <span className='text-2xl text-slate-700 mr-2 ml-6'>X</span>
+        <DropMenu
+          options={options}
+          selectedOption={selectedXOption}
+          onSelectedOptionChange={setSelectedXOption}
+        />
       </div>
 
-      <svg width={width} height={height}>
-        <g transform={`translate(${margin.left},${margin.top})`}>
+      {/* visualization */}
+      <div className='p-2 mt-2 border-2 border-border_gray w-fit'>
 
-          <BarAxisBottom
-            xScale={xScale}
-            innerHeight={innerHeight}
-            tickFormat={xAxisTickFormat}
-          />
-          <BarAxisLeft yScale={yScale} />
-          <text
-            x={innerWidth / 2}
-            y={innerHeight + xAxisLabelOffset}
-            textAnchor="middle"
-            fill="black"
-            style={{ fontSize: 20, fill: "#635F5D" }}
-          >
-            {xAxisLabel}
-          </text>
-          <text
-            textAnchor="middle"
-            transform={`translate(${-margin.left + 20},${innerHeight / 2}) rotate(-90)`}
-            style={{ fontSize: 20, fill: "#635F5D" }}
-          >
-            {yAxisLabel}
-          </text>
-          <BarMarks
-            data={data}
-            xScale={xScale}
-            yScale={yScale}
-            xValue={xValue}
-            yValue={yValue}
-            toolTipFormat={xAxisTickFormat}
-          />
-        </g>
-      </svg>
+        <svg width={width} height={height}>
+          <g transform={`translate(${margin.left},${margin.top})`}>
+
+            <BarAxisBottom
+              xScale={xScale}
+              innerHeight={innerHeight}
+              tickFormat={xAxisTickFormat}
+            />
+            <BarAxisLeft yScale={yScale} />
+
+            <text
+              x={innerWidth / 2}
+              y={innerHeight + xAxisLabelOffset}
+              textAnchor="middle"
+              fill="black"
+              style={{ fontSize: 20, fill: "#635F5D" }}
+            >
+              {xAxisLabel}
+            </text>
+
+            <text
+              textAnchor="middle"
+              transform={`translate(${-margin.left + 20},${innerHeight / 2}) rotate(-90)`}
+              style={{ fontSize: 20, fill: "#635F5D" }}
+            >
+              {yAxisLabel}
+            </text>
+
+            <BarMarks
+              data={data}
+              xScale={xScale}
+              yScale={yScale}
+              xValue={xValue}
+              yValue={yValue}
+              toolTipFormat={xAxisTickFormat}
+            />
+          </g>
+        </svg>
+
+      </div>
 
     </div>
   );
 };
 
 export default Barchart;
+

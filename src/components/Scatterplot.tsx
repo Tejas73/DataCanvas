@@ -8,11 +8,6 @@ import DropMenu from "../utility/DropMenu";
 import ColorLegend from "../utils/ColorLegend";
 import { CapAndReplace } from "../utility/CapAndReplace";
 
-// interface ScatterData {
-//   // Define your data structure for scatter plot data
-//   [key: string]: number | string; // Adjust based on your actual data structure
-// }
-
 const Scatterplot: React.FC = () => {
   const [csvScatter, setCsvScatter] = useState("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv");
   const data = useDataScatter(csvScatter);
@@ -20,7 +15,7 @@ const Scatterplot: React.FC = () => {
 
   const initialXOption = { value: "choose x axis", label: 'Select x axis' }
   const [selectedXOption, setSelectedXOption] = useState<{ value: string, label: string }>(initialXOption);
-  const xValue = (d) => (d[selectedXOption.value]); 
+  const xValue = (d) => (d[selectedXOption.value]);
   const xAxisLabel = CapAndReplace(selectedXOption.label);
 
   const initialYOption = { value: "choose y axis", label: 'Select y axis' }
@@ -78,31 +73,34 @@ const Scatterplot: React.FC = () => {
   const filteredData = data.filter(d => hoveredValue === colorValue(d));
 
   return (
-    <div>
+    <div className='p-3 xl:p-6'>
 
-      <div>
-        <h1>Scatterplot</h1>
+      {/* title */}
+      <div className='text-5xl font-medium'>
+        Scatterplot
       </div>
 
-      <div>
+      {/* input field  */}
+      <div className='my-5'>
         <input
           type="text"
           id='csvBar'
           value={csvScatter}
           onChange={(e) => setCsvScatter(e.target.value)}
           placeholder="Input your csv url"
-          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-2/5 relative z-10 mt-4  bg-neutral-300 placeholder:text-neutral-700"
+          className="block w-2/5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
         />
       </div>
-      
+
+      {/* menu  */}
       <div>
-        <span style={{ fontSize: 25, color: "#635F5D" }}>X</span>
+        <span className='text-2xl text-slate-700 mr-2'>X</span>
         <DropMenu
           options={options}
           selectedOption={selectedXOption}
           onSelectedOptionChange={setSelectedXOption}
         />
-        <span style={{ fontSize: 25, color: "#635F5D" }}>Y</span>
+        <span className='text-2xl text-slate-700 mr-2 ml-6'>Y</span>
         <DropMenu
           options={options}
           selectedOption={selectedYOption}
@@ -110,52 +108,66 @@ const Scatterplot: React.FC = () => {
         />
       </div>
 
-      <svg width={width} height={height}>
-        <g transform={`translate(${margin.left},${margin.top})`}>
-          <ScatterAxisBottom
-            xScale={xScale}
-            innerHeight={innerHeight}
-            tickFormat={xAxisTickFormat}
-          />
-          <ScatterAxisLeft yScale={yScale} innerWidth={innerWidth} />
+      {/* visualization */}
+      <div className='p-2 mt-2 border-2 border-border_gray w-fit '>
 
-          <text
-            textAnchor="middle"
-            transform={`translate(${-yAxisLabelOffset},${innerHeight / 2}) rotate(-90)`}
-            style={{ fontSize: 30, fill: "#635F5D" }}
-          >
-            {yAxisLabel}
-          </text>
+        <svg width={width} height={height}>
+          <g transform={`translate(${margin.left},${margin.top})`}>
+            <ScatterAxisBottom
+              xScale={xScale}
+              innerHeight={innerHeight}
+              tickFormat={xAxisTickFormat}
+            />
+            <ScatterAxisLeft yScale={yScale} innerWidth={innerWidth} />
 
-          <text
-            x={innerWidth / 2}
-            y={innerHeight + xAxisLabelOffset}
-            textAnchor="middle"
-            style={{ fontSize: 30, fill: "#635F5D" }}
-          >
-            {xAxisLabel}
-          </text>
-          <g transform={`translate(${innerWidth + 70},35 )`}>
             <text
-              x={35}
-              y={-25}
+              textAnchor="middle"
+              transform={`translate(${-yAxisLabelOffset},${innerHeight / 2}) rotate(-90)`}
+              style={{ fontSize: 25, fill: "#635F5D" }}
+            >
+              {yAxisLabel}
+            </text>
+
+            <text
+              x={innerWidth / 2}
+              y={innerHeight + xAxisLabelOffset}
               textAnchor="middle"
               style={{ fontSize: 25, fill: "#635F5D" }}
             >
-              {colorLegendLabel}
+              {xAxisLabel}
             </text>
-            <ColorLegend
-              tickSpacing={20}
-              tickSize={9}
-              tickTextOffset={20}
-              colorScale={colorScale}
-              onHover={setHoveredValue}
-              hoveredValue={hoveredValue}
-            />
-          </g>
-          <g opacity={hoveredValue ? 0.2 : 1}>
+            <g transform={`translate(${innerWidth + 70},35 )`}>
+              <text
+                x={35}
+                y={-25}
+                textAnchor="middle"
+                style={{ fontSize: 30, fill: "#635F5D" }}
+              >
+                {colorLegendLabel}
+              </text>
+              <ColorLegend
+                tickSpacing={20}
+                tickSize={9}
+                tickTextOffset={20}
+                colorScale={colorScale}
+                onHover={setHoveredValue}
+                hoveredValue={hoveredValue}
+              />
+            </g>
+            <g opacity={hoveredValue ? 0.2 : 1}>
+              <ScatterMarks
+                data={data}
+                xScale={xScale}
+                yScale={yScale}
+                xValue={xValue}
+                yValue={yValue}
+                colorScale={colorScale}
+                colorValue={colorValue}
+                toolTipFormat={xAxisTickFormat}
+              />
+            </g>
             <ScatterMarks
-              data={data}
+              data={filteredData}
               xScale={xScale}
               yScale={yScale}
               xValue={xValue}
@@ -165,18 +177,9 @@ const Scatterplot: React.FC = () => {
               toolTipFormat={xAxisTickFormat}
             />
           </g>
-          <ScatterMarks
-            data={filteredData}
-            xScale={xScale}
-            yScale={yScale}
-            xValue={xValue}
-            yValue={yValue}
-            colorScale={colorScale}
-            colorValue={colorValue}
-            toolTipFormat={xAxisTickFormat}
-          />
-        </g>
-      </svg>
+        </svg>
+      </div>
+
     </div>
   );
 };

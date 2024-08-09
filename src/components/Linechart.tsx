@@ -54,28 +54,33 @@ const Linechart: React.FC = () => {
     .nice();
 
   return (
-    <div>
-      <div>
-        <h1>Linechart</h1>
+    <div className='p-3 xl:p-6'>
+      {/* title */}
+      <div className='text-5xl font-medium'>
+        Linechart
       </div>
-      <div> 
+
+      {/* input field  */}
+      <div className='my-5'>
         <input
           type="text"
           id='csvBar'
           value={csvLine}
           onChange={(e) => setCsvLine(e.target.value)}
           placeholder="Input your csv url"
-          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-2/5 relative z-10 mt-4  bg-neutral-300 placeholder:text-neutral-700"
+          className="block w-2/5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
         />
       </div>
+
+      {/* menu  */}
       <div>
-        <span style={{ fontSize: 25, color: "#635F5D" }}>X</span>
+        <span className='text-2xl text-slate-700 mr-2'>X</span>
         <DropMenu
           options={options}
           selectedOption={selectedXOption}
           onSelectedOptionChange={setSelectedXOption}
         />
-        <span style={{ fontSize: 25, color: "#635F5D" }}>Y</span>
+        <span className='text-2xl text-slate-700 mr-2 ml-6'>Y</span>
         <DropMenu
           options={options}
           selectedOption={selectedYOption}
@@ -83,42 +88,47 @@ const Linechart: React.FC = () => {
         />
       </div>
 
-      <svg width={width} height={height}>
-        <g transform={`translate(${margin.left},${margin.top})`}>
-          <ScatterAxisBottom
-            xScale={xScale}
-            innerHeight={innerHeight}
-            tickFormat={xAxisTickFormat}
-          />
-          <ScatterAxisLeft yScale={yScale} innerWidth={innerWidth} />
+      {/* visualization */}
+      <div className='p-2 mt-2 border-2 border-border_gray w-fit'>
 
-          <text
-            textAnchor="middle"
-            transform={`translate(${-yAxisLabelOffset},${innerHeight / 2}) rotate(-90)`}
-            style={{ fontSize: 30, fill: "#635F5D" }}
-          >
-            {yAxisLabel}
-          </text>
+        <svg width={width} height={height}>
+          <g transform={`translate(${margin.left},${margin.top})`}>
+            <ScatterAxisBottom
+              xScale={xScale}
+              innerHeight={innerHeight}
+              tickFormat={xAxisTickFormat}
+            />
+            <ScatterAxisLeft yScale={yScale} innerWidth={innerWidth} />
 
-          <text
-            x={innerWidth / 2}
-            y={innerHeight + xAxisLabelOffset}
-            textAnchor="middle"
-            style={{ fontSize: 30, fill: "#635F5D" }}
-          >
-            {xAxisLabel}
-          </text>
+            <text
+              textAnchor="middle"
+              transform={`translate(${-yAxisLabelOffset},${innerHeight / 2}) rotate(-90)`}
+              style={{ fontSize: 25, fill: "#635F5D" }}
+            >
+              {yAxisLabel}
+            </text>
 
-          <LineMarks
-            data={data}
-            xScale={xScale}
-            yScale={yScale}
-            xValue={xValue}
-            yValue={yValue}
-            toolTipFormat={xAxisTickFormat}
-          />
-        </g>
-      </svg>
+            <text
+              x={innerWidth / 2}
+              y={innerHeight + xAxisLabelOffset}
+              textAnchor="middle"
+              style={{ fontSize: 25, fill: "#635F5D" }}
+            >
+              {xAxisLabel}
+            </text>
+
+            <LineMarks
+              data={data}
+              xScale={xScale}
+              yScale={yScale}
+              xValue={xValue}
+              yValue={yValue}
+              toolTipFormat={xAxisTickFormat}
+            />
+          </g>
+        </svg>
+
+      </div>
     </div>
   );
 }

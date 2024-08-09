@@ -23,9 +23,13 @@ const DropMenu: React.FC<DropMenuProps> = ({ options, selectedOption, onSelected
     };
 
     return (
-        <Menu menuButton={<MenuButton>{CapAndReplace(selectedOption.label)}</MenuButton>}>
+        <Menu menuButton={
+            <MenuButton className=''>
+                {CapAndReplace(selectedOption.label)}
+            </MenuButton>}>
             {options.map(option => (
-                <MenuItem key={option.value} onClick={() => handleSelect(option.value)}>
+                <MenuItem key={option.value}
+                    onClick={() => handleSelect(option.value)}>
                     {CapAndReplace(option.label)}
                 </MenuItem>
             ))}
