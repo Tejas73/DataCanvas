@@ -6,45 +6,13 @@ import { ScatterAxisLeft } from "../utils/AxisLeft";
 import { LineMarks } from "../utils/Marks";
 import DropMenu from "../utils/DropMenu";
 import { CapAndReplace } from "../utility/CapAndReplace";
+import { useDimensions } from "../hook/useDimensions";
 
 const Linechart: React.FC = () => {
   const [csvLine, setCsvLine] = useState("https://gist.githubusercontent.com/ny2cali/ae74ee9a6f73fbf6d48d0e9108296e97/raw/78375409c2428911c7bf1d6a1ac83318c5deaec1/week_temperature_sf.csv")
   const data = useDataLine(csvLine);
-  const [vizWidth, setVizWidth] = useState(960);
-  const [vizHeight, setVizHeight] = useState(500);
-  const [fontSizeText, setFontSizeText] = useState(20);
-
-  useEffect(() => {
-    const handleResize = () => {
-      // for small screens
-      if (window.innerWidth < 450 && window.innerHeight < 1000) {
-        setVizWidth(350);
-        setVizHeight(300);
-        setFontSizeText(12);
-      }
-      // for medium screens 
-      else if (window.innerWidth < 1000 && window.innerHeight < 450) {
-        setVizWidth(800);
-        setVizHeight(350);
-        setFontSizeText(16);
-      }
-      // for large screens 
-      else {
-        setVizWidth(960);
-        setVizHeight(500);
-        setFontSizeText(20);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-
-  }, []);
+  
+  const { vizWidth, vizHeight, fontSizeText } = useDimensions();
 
   const margin = { top: 20, right: 30, bottom: 65, left: 100 };
 
@@ -97,7 +65,7 @@ const Linechart: React.FC = () => {
       <div className='my-5'>
         <input
           type="text"
-          id='csvBar'
+          id='csvBar' 
           value={csvLine}
           onChange={(e) => setCsvLine(e.target.value)}
           placeholder="Input your csv url"

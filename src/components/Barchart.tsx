@@ -6,45 +6,13 @@ import { BarAxisLeft } from "../utils/AxisLeft";
 import { BarMarks } from "../utils/Marks";
 import DropMenu from '../utils/DropMenu';
 import { CapAndReplace } from '../utility/CapAndReplace';
+import { useDimensions } from '../hook/useDimensions';
 
 const Barchart: React.FC = () => {
   const [csvBar, setCsvBar] = useState("https://gist.githubusercontent.com/Tejas73/10d3a301f64ce908c818f76de91c6d15/raw/b7e9a043cda25cbea9788c967e6979b4f6924cf5/sales-trends.csv");
   const data = useDataBar(csvBar);
-  const [vizWidth, setVizWidth] = useState(960);
-  const [vizHeight, setVizHeight] = useState(500);
-  const [fontSizeText, setFontSizeText] = useState(20);
 
-  useEffect(() => {
-    const handleResize = () => {
-      // for small screens
-      if (window.innerWidth < 450 && window.innerHeight < 1000) {
-        setVizWidth(350);
-        setVizHeight(300);
-        setFontSizeText(12);
-      }
-      // for medium screens 
-      else if (window.innerWidth < 1000 && window.innerHeight < 450) {
-        setVizWidth(800);
-        setVizHeight(350);
-        setFontSizeText(16);
-      }
-      // for large screens 
-      else {
-        setVizWidth(960);
-        setVizHeight(500);
-        setFontSizeText(20);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-
-  }, []);
+  const { vizWidth, vizHeight, fontSizeText } = useDimensions();
 
   const margin = { top: 100, right: 20, bottom: 50, left: 65 };
   const xAxisLabelOffset = 50;
@@ -115,7 +83,7 @@ const Barchart: React.FC = () => {
         <DropMenu
           options={options}
           selectedOption={selectedXOption}
-          onSelectedOptionChange={setSelectedXOption}
+          onSelectedOptionChange={setSelectedXOption} 
         />
       </div>
 

@@ -7,46 +7,13 @@ import { ScatterMarks } from "../utils/Marks";
 import DropMenu from "../utils/DropMenu";
 import ColorLegend from "../utils/ColorLegend";
 import { CapAndReplace } from "../utility/CapAndReplace";
+import { useDimensions } from "../hook/useDimensions";
 
 const Scatterplot: React.FC = () => {
   const [csvScatter, setCsvScatter] = useState("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv");
   const data = useDataScatter(csvScatter);
   const [hoveredValue, setHoveredValue] = useState<string | null>(null);
-  const [vizWidth, setVizWidth] = useState(960);
-  const [vizHeight, setVizHeight] = useState(500);
-  const [fontSizeText, setFontSizeText] = useState(20);
-
-  useEffect(() => {
-    const handleResize = () => {
-      // for small screens
-      if (window.innerWidth < 450 && window.innerHeight < 1000) {
-        setVizWidth(350);
-        setVizHeight(300);
-        setFontSizeText(12);
-      }
-      // for medium screens 
-      else if (window.innerWidth < 1000 && window.innerHeight < 450) {
-        setVizWidth(800);
-        setVizHeight(350);
-        setFontSizeText(16);
-      }
-      // for large screens 
-      else {
-        setVizWidth(960);
-        setVizHeight(500);
-        setFontSizeText(20);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-
-  }, [])
+  const { vizWidth, vizHeight, fontSizeText } = useDimensions();
 
   const initialXOption = { value: "choose x axis", label: 'Select x axis' }
   const [selectedXOption, setSelectedXOption] = useState<{ value: string, label: string }>(initialXOption);
@@ -153,7 +120,7 @@ const Scatterplot: React.FC = () => {
               innerHeight={innerHeight}
               tickFormat={xAxisTickFormat}
               fontSizeText={fontSizeText}
-            />
+            /> 
             <ScatterAxisLeft
               yScale={yScale}
               innerWidth={innerWidth}
