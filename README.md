@@ -12,7 +12,9 @@ LIVE- https://data-canvas-virid.vercel.app/
 
 ## Technology Stack:
 -Frontend: Uses React.js for building user interfaces, TypeScript for type safety, and Tailwind CSS for styling.
+
 -Data Visualization: Utilizes D3.js to create sophisticated and customizable visualizations.
+
 -State Management: Employs React hooks for managing state efficiently.
 
 ## Key Features:
