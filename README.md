@@ -19,5 +19,7 @@ LIVE- https://data-canvas-virid.vercel.app/
 
 ## Key Features:
 -Interactive Visualizations: Includes interactive charts and graphs that allow users to explore and analyze data.
+
 -Reusable Components: Implements reusable components for various types of charts and data visualizations.
+
 -Optimized Performance: Ensures smooth performance and responsive design, adapting to different screen sizes and data sets.
