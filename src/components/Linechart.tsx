@@ -1,25 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as d3 from "d3";
 import { useDataLine } from "../hook/useData";
 import { ScatterAxisBottom } from "../utils/AxisBottom";
 import { ScatterAxisLeft } from "../utils/AxisLeft";
 import { LineMarks } from "../utils/Marks";
-import DropMenu from "../utility/DropMenu";
+import DropMenu from "../utils/DropMenu";
 import { CapAndReplace } from "../utility/CapAndReplace";
 
 const Linechart: React.FC = () => {
   const [csvLine, setCsvLine] = useState("https://gist.githubusercontent.com/ny2cali/ae74ee9a6f73fbf6d48d0e9108296e97/raw/78375409c2428911c7bf1d6a1ac83318c5deaec1/week_temperature_sf.csv")
   const data = useDataLine(csvLine);
+  const [vizWidth, setVizWidth] = useState(960);
+  const [vizHeight, setVizHeight] = useState(500);
+  const [fontSizeText, setFontSizeText] = useState(20);
 
-  const width = 960;
-  const height = 500;
+  useEffect(() => {
+    const handleResize = () => {
+      // for small screens
+      if (window.innerWidth < 450 && window.innerHeight < 1000) {
+        setVizWidth(350);
+        setVizHeight(300);
+        setFontSizeText(12);
+      }
+      // for medium screens 
+      else if (window.innerWidth < 1000 && window.innerHeight < 450) {
+        setVizWidth(800);
+        setVizHeight(350);
+        setFontSizeText(16);
+      }
+      // for large screens 
+      else {
+        setVizWidth(960);
+        setVizHeight(500);
+        setFontSizeText(20);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+
+  }, []);
+
   const margin = { top: 20, right: 30, bottom: 65, left: 100 };
 
   const xAxisLabelOffset = 55;
   const yAxisLabelOffset = 50;
 
-  const innerHeight = height - margin.top - margin.bottom;
-  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = vizHeight - margin.top - margin.bottom;
+  const innerWidth = vizWidth - margin.left - margin.right;
 
   const xAxisTickFormat = d3.timeFormat('%a');
 
@@ -56,7 +89,7 @@ const Linechart: React.FC = () => {
   return (
     <div className='p-3 xl:p-6'>
       {/* title */}
-      <div className='text-5xl font-medium'>
+      <div className='sm:text-3xl lg:text-5xl font-medium'>
         Linechart
       </div>
 
@@ -68,7 +101,7 @@ const Linechart: React.FC = () => {
           value={csvLine}
           onChange={(e) => setCsvLine(e.target.value)}
           placeholder="Input your csv url"
-          className="block w-2/5 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+          className="sm:text-xs md:text-base lg:text-xl sm:leading-6 block w-2/5 rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300"
         />
       </div>
 
@@ -91,14 +124,19 @@ const Linechart: React.FC = () => {
       {/* visualization */}
       <div className='p-2 mt-2 border-2 border-border_gray w-fit'>
 
-        <svg width={width} height={height}>
+        <svg width={vizWidth} height={vizHeight}>
           <g transform={`translate(${margin.left},${margin.top})`}>
             <ScatterAxisBottom
               xScale={xScale}
               innerHeight={innerHeight}
               tickFormat={xAxisTickFormat}
+              fontSizeText={fontSizeText}
             />
-            <ScatterAxisLeft yScale={yScale} innerWidth={innerWidth} />
+            <ScatterAxisLeft
+              yScale={yScale}
+              innerWidth={innerWidth}
+              fontSizeText={fontSizeText}
+            />
 
             <text
               textAnchor="middle"

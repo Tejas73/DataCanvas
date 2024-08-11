@@ -1,19 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import { useDataBar } from "../hook/useData";
 import { BarAxisBottom } from "../utils/AxisBottom";
 import { BarAxisLeft } from "../utils/AxisLeft";
 import { BarMarks } from "../utils/Marks";
-import DropMenu from '../utility/DropMenu';
+import DropMenu from '../utils/DropMenu';
 import { CapAndReplace } from '../utility/CapAndReplace';
 
 const Barchart: React.FC = () => {
   const [csvBar, setCsvBar] = useState("https://gist.githubusercontent.com/Tejas73/10d3a301f64ce908c818f76de91c6d15/raw/b7e9a043cda25cbea9788c967e6979b4f6924cf5/sales-trends.csv");
   const data = useDataBar(csvBar);
+  const [vizWidth, setVizWidth] = useState(960);
+  const [vizHeight, setVizHeight] = useState(500);
+  const [fontSizeText, setFontSizeText] = useState(20);
 
-  const width = 960;
-  const height = 500;
-  const margin = { top: 100, right: 20, bottom: 50, left: 200 };
+  useEffect(() => {
+    const handleResize = () => {
+      // for small screens
+      if (window.innerWidth < 450 && window.innerHeight < 1000) {
+        setVizWidth(350);
+        setVizHeight(300);
+        setFontSizeText(12);
+      }
+      // for medium screens 
+      else if (window.innerWidth < 1000 && window.innerHeight < 450) {
+        setVizWidth(800);
+        setVizHeight(350);
+        setFontSizeText(16);
+      }
+      // for large screens 
+      else {
+        setVizWidth(960);
+        setVizHeight(500);
+        setFontSizeText(20);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+
+  }, []);
+
+  const margin = { top: 100, right: 20, bottom: 50, left: 65 };
   const xAxisLabelOffset = 50;
   const SIformat = d3.format('.2s');
   const xAxisTickFormat = (tickValue: number) => SIformat(tickValue).replace('G', 'B');
@@ -38,8 +71,8 @@ const Barchart: React.FC = () => {
     label: option
   }));
 
-  const innerHeight = height - margin.top - margin.bottom;
-  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = vizHeight - margin.top - margin.bottom;
+  const innerWidth = vizWidth - margin.left - margin.right;
 
   const xScale = d3.scaleLinear()
     .domain([0, d3.max(data, xValue)!])
@@ -54,7 +87,7 @@ const Barchart: React.FC = () => {
     <div className='p-3 xl:p-6'>
 
       {/* title */}
-      <div className='text-5xl font-medium'>
+      <div className='sm:text-3xl lg:text-5xl font-medium'>
         Barchart
       </div>
 
@@ -66,7 +99,7 @@ const Barchart: React.FC = () => {
           value={csvBar}
           onChange={(e) => setCsvBar(e.target.value)}
           placeholder="Input your csv url"
-          className="block w-2/5 rounded-md border-0 py-1.5 px-3  text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
+          className="sm:text-xs md:text-base lg:text-xl sm:leading-6 block w-2/5 rounded-md border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300"
         />
       </div>
 
@@ -87,32 +120,41 @@ const Barchart: React.FC = () => {
       </div>
 
       {/* visualization */}
-      <div className='p-2 mt-2 border-2 border-border_gray w-fit'>
+      <div className='p-2 mt-2 border-2 border-border_gray w-fit flex justify-center'>
 
-        <svg width={width} height={height}>
+        <svg width={vizWidth} height={vizHeight}>
           <g transform={`translate(${margin.left},${margin.top})`}>
 
+            {/* BarAxisBottom */}
             <BarAxisBottom
               xScale={xScale}
               innerHeight={innerHeight}
               tickFormat={xAxisTickFormat}
+              fontSizeText={fontSizeText}
             />
-            <BarAxisLeft yScale={yScale} />
 
+            {/* BarAxisLeft  */}
+            <BarAxisLeft
+              yScale={yScale}
+              fontSizeText={fontSizeText}
+            />
+
+            {/* xAxisLabel */}
             <text
               x={innerWidth / 2}
               y={innerHeight + xAxisLabelOffset}
               textAnchor="middle"
               fill="black"
-              style={{ fontSize: 20, fill: "#635F5D" }}
+              style={{ fontSize: fontSizeText, fill: "#635F5D" }}
             >
               {xAxisLabel}
             </text>
 
+            {/* yAxisLabel */}
             <text
               textAnchor="middle"
               transform={`translate(${-margin.left + 20},${innerHeight / 2}) rotate(-90)`}
-              style={{ fontSize: 20, fill: "#635F5D" }}
+              style={{ fontSize: fontSizeText, fill: "#635F5D" }}
             >
               {yAxisLabel}
             </text>

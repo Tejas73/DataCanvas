@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, MenuButton, MenuItem } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
-import { CapAndReplace } from './CapAndReplace';
+import { CapAndReplace } from '../utility/CapAndReplace';
 
 interface Option {
     value: string;
