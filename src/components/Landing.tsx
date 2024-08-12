@@ -77,7 +77,7 @@ const Landing = () => {
                     {/* 1st paragraph  */}
                     <div className="border-4 border-slate-900 rounded-2xl p-4 w-fit bg-lime-400 mb-2  md:col-start-1">
                         <div className=" relative z-10 text-2xl md:text-5xl text-slate-900 font-sans font-bold pb-2">
-                            Clean your data
+                        1)Clean your data
                         </div>
                         <p className="text-black max-w-lg  my-2 bg-slate-200 rounded-lg p-2 ">
                             This is the most important step. Make sure your data is clean so that Data Canvas can provide the expected visualization for you.
@@ -88,7 +88,7 @@ const Landing = () => {
                     <div className="md:row-span-3 antialiased">
                         <div className="border-4 border-slate-900 rounded-2xl p-4 w-fit bg-lime-400 mb-2">
                             <div className="relative z-10 text-2xl md:text-5xl text-slate-900 font-sans font-bold pb-2">
-                                Paste your CSV link
+                            2)Paste your CSV link
                             </div>
                             <p className="text-black max-w-lg my-2 bg-slate-200 rounded-lg p-2">
                                 Get a CSV link of your dataset and paste it in the input field. Make sure your data is relevant to the visualization. Here's what Data Canvas expects the data types for each visualization to be:- <br></br><br></br>
@@ -104,7 +104,7 @@ const Landing = () => {
                     {/* 3rd paragraph  */}
                     <div className="border-4 border-slate-900 rounded-2xl p-4 w-fit bg-lime-400 mb-6">
                         <div className="relative z-10 text-2xl md:text-5xl text-slate-900 font-sans font-bold pb-2">
-                            Finally-
+                            3)Finally-
                         </div>
                         <p className="text-black max-w-lg my-2 bg-slate-200 rounded-lg p-2 ">
                             If you followed the above steps properly then just sit back and relax and let your dataset come to life!
